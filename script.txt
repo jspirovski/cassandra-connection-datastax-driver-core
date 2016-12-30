@@ -1,0 +1,36 @@
+CREATE KEYSPACE IF NOT EXISTS library
+WITH replication = {
+	'class' : 'SimpleStrategy',
+	'replication_factor' : 1
+};
+
+
+CREATE TABLE IF NOT EXISTS library.authors (
+	author_id uuid,
+	first_name text,
+	last_name text,
+	birth_date timestamp,
+	PRIMARY KEY (author_id)
+);
+
+CREATE TABLE IF NOT EXISTS library.books (
+	isbn text,
+	title text,
+	year int,
+	type text,
+	has_color boolean,
+	has_monsters boolean,
+	PRIMARY KEY (isbn)
+);
+
+
+CREATE TABLE IF NOT EXISTS library.books_by_author_id (
+	author_id uuid,
+	isbn text,
+	title text,
+	year int,
+	type text,
+	has_color boolean,
+	has_monsters boolean,
+	PRIMARY KEY ((author_id),isbn)
+);
